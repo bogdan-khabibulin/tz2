@@ -1,0 +1,65 @@
+name: AutoTests (Push)
+on: [push]
+jobs:
+
+  run-tests:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Execute Gradle Test
+        run: ./gradlew test
+
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Gradle Tests
+          path: '**/build/test-results/test/TEST*.xml'
+          reporter: java-junit
+          fail-on-error: true
+
+      - name: Parse Test Results
+        if: failure()
+        run: |
+          mkdir -p test-failures
+          for file in $(find . -path "./build/test-results/test/TEST-*.xml"); do
+            if grep -q '<failure' "$file"; then
+              suite=$(basename "$file" .xml)
+              failed_tests=$(xmllint --xpath '//testcase[failure]' "$file" | grep -oP '(?<=name=")[^"]+')
+              for test in $failed_tests; do
+                echo "$suite: $test" >> test-failures/failed_tests.txt
+              done
+            fi
+          done
+
+      - name: Send Failure Message
+        if: failure()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Тесты не пройдены. (Тесты были запущены в автоматическом режиме)
+            Не пройдены следующие тесты:
+            ${{ steps.parse-test-results.outputs.failed_tests }}
+      - name: send true message
+        uses: appleboy/telegram-action@master
+        if: success()
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+              все ок
