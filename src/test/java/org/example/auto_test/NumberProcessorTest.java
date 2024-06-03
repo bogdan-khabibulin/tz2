@@ -16,11 +16,11 @@ import java.awt.*;
 
 public class NumberProcessorTest {
 
-    public void main() {
+    public static void main(String[] args) {
         XYSeries series = new XYSeries("Время выполнения");
 
         for (int numCount = 1000; numCount <= 5000000; numCount += 100000) {
-            String fileName = "numbers_" + numCount + ".txt";
+            String fileName = "test.txt";
             try {
                 FileWriter writer = new FileWriter(fileName);
                 for (int i = 1; i <= numCount; i++) {
