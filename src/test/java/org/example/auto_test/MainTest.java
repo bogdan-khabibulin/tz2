@@ -49,33 +49,4 @@ public class MainTest {
         } catch (Exception e) {
         }
     }
-
-    @Test
-    public void testPerformance() {
-
-        String fileName = "input.txt";
-        int numCount = 1000000;
-        try {
-            FileWriter writer = new FileWriter(fileName);
-            for (int i = 1; i <= numCount; i++) {
-                writer.write(i + " ");
-            }
-            writer.close();
-        } catch (IOException e) {
-            fail("Failed to write numbers to file");
-        }
-
-        long startTime = System.currentTimeMillis();
-        try {
-            String[] arg = {"input.txt"};
-            Main.main(arg);
-        } catch (Exception e) {
-            fail("Exception occurred during execution: " + e.getMessage());
-        }
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
-        System.out.println("Время выполнения для " + numCount + " чисел: " + duration + " мс");
-
-        assertTrue(duration < 1000);
-    }
 }

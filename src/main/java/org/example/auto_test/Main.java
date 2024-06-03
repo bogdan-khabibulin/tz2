@@ -78,4 +78,12 @@ public class Main {
         }
         return mult;
     }
+
+    public static double _avg(int[] numbers) { // Доп. метод
+        if (numbers.length == 0) {
+            return 0;
+        }
+        int sum = _sum(numbers);
+        return (double) sum / numbers.length;
+    }
 }

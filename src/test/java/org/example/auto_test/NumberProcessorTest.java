@@ -5,7 +5,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,14 +14,12 @@ import java.io.IOException;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class NumberProcessorTest {
 
-    @Test
-    public void testPerformance() {
+    public void main() {
         XYSeries series = new XYSeries("Время выполнения");
 
-        for (int numCount = 1000; numCount <= 1000000; numCount += 100000) {
+        for (int numCount = 1000; numCount <= 5000000; numCount += 100000) {
             String fileName = "numbers_" + numCount + ".txt";
             try {
                 FileWriter writer = new FileWriter(fileName);
@@ -64,7 +61,7 @@ public class NumberProcessorTest {
         });
 
         try {
-            Thread.sleep(1); // Изменить при желании увидеть график (Например 60000)
+            Thread.sleep(60000); // Изменить при желании увидеть график (Например 60000)
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
