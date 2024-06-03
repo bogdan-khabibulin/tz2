@@ -61,7 +61,7 @@ public class NumberProcessorTest {
         });
 
         try {
-            Thread.sleep(60000); // Изменить при желании увидеть график (Например 60000)
+            Thread.sleep(60000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
