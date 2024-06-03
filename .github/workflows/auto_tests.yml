@@ -1,5 +1,5 @@
-name: AutoTests (Push)
-on: [push]
+name: AutoTests (Push and Pull Request)
+on: [push, pull_request]
 jobs:
 
   run-tests:

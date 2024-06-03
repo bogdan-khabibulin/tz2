@@ -27,7 +27,7 @@ public class MainTest {
     @Test
     public void testCalculateProduct() {
         int[] numbers = {12, 3, -5, 7, 19, 8, 2, -10, 6};
-        assertEquals(-239400, Main._mult(numbers)); // Произведение всех чисел в массиве
+        assertEquals(22982400, Main._mult(numbers)); // Произведение всех чисел в массиве
     }    
 
     @Test // Доп тест
