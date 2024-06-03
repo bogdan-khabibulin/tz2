@@ -8,27 +8,27 @@ public class MainTest {
 
     @Test
     public void testFindMin() {
-        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
-        assertEquals(-2, Main._min(numbers));
+        int[] numbers = {12, 3, -5, 7, 19, 8, 2, -10, 6};
+        assertEquals(-10, Main._min(numbers));
     }
-
+    
     @Test
     public void testFindMax() {
-        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
-        assertEquals(10, Main._max(numbers));
+        int[] numbers = {12, 3, -5, 7, 19, 8, 2, -10, 6};
+        assertEquals(19, Main._max(numbers));
     }
-
+    
     @Test
     public void testCalculateSum() {
-        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
-        assertEquals(40, Main._sum(numbers));
+        int[] numbers = {12, 3, -5, 7, 19, 8, 2, -10, 6};
+        assertEquals(42, Main._sum(numbers));
     }
-
+    
     @Test
     public void testCalculateProduct() {
-        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
-        assertEquals(0, Main._mult(numbers)); // Произведение равно 0, так как один из элементов массива равен 0
-    }
+        int[] numbers = {12, 3, -5, 7, 19, 8, 2, -10, 6};
+        assertEquals(-239400, Main._mult(numbers)); // Произведение всех чисел в массиве
+    }    
 
     @Test // Доп тест
     public void testSingleNumberFile() {
