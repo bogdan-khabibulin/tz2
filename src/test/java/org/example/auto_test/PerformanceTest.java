@@ -8,12 +8,10 @@ public class PerformanceTest {
         String fileName = "input.txt";
         int numCount = 1000000;
         
-        try {
-            FileWriter writer = new FileWriter(fileName);
+        try (FileWriter writer = new FileWriter(fileName)) {
             for (int i = 1; i <= numCount; i++) {
                 writer.write(1 + " ");
             }
-            writer.close();
         } catch (IOException e) {
             System.err.println("Failed to write numbers to file");
             e.printStackTrace();

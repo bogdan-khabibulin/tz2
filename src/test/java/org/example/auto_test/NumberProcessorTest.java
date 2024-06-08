@@ -29,14 +29,14 @@ public class NumberProcessorTest {
             } catch (IOException e) {
                 fail("Failed to write numbers to file");
             }
-            long startTime = System.currentTimeMillis();
+            long startTime = System.nanoTime();
             try {
                 String[] arg = {fileName};
                 Main.main(arg);
             } catch (Exception e) {
                 fail("Exception occurred during execution: " + e.getMessage());
             }
-            long endTime = System.currentTimeMillis();
+            long endTime = System.nanoTime();
             long duration = endTime - startTime;
 
             series.add(numCount, duration);
