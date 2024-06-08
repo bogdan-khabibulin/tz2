@@ -11,7 +11,7 @@ public class PerformanceTest {
         try {
             FileWriter writer = new FileWriter(fileName);
             for (int i = 1; i <= numCount; i++) {
-                writer.write(i + " ");
+                writer.write(1 + " ");
             }
             writer.close();
         } catch (IOException e) {

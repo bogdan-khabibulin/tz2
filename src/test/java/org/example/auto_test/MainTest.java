@@ -1,6 +1,10 @@
 package org.example.auto_test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Timeout;
+import java.util.concurrent.TimeUnit;
+import java.lang.Thread;
 
 public class MainTest {
 
@@ -18,19 +22,39 @@ public class MainTest {
     
     @Test
     public void testCalculateSum() {
-        int[] numbers = {12, 3, -5, 7, 19, 8, 2, -10, 6};
-        assertEquals(42, Main._sum(numbers));
+        int[] numbers1 = {Integer.MAX_VALUE, 1};
+        int[] numbers2 = {12, 3, -5, 7, 19, 8, 2, -10, 6};
+        assertAll(
+            () -> assertThrows(ArithmeticException.class, () -> Main._sum(numbers1)),
+            () -> assertEquals(42, Main._sum(numbers2))
+        );
     }
     
     @Test
     public void testCalculateProduct() {
-        int[] numbers = {12, 3, -5, 7, 19, 8, 2, -10, 6};
-        assertEquals(22982400, Main._mult(numbers));
+        int[] numbers1 = {Integer.MAX_VALUE, 2};
+        int[] numbers2 = {12, 3, -5, 7, 19, 8, 2, -10, 6};
+        assertAll(
+            () -> assertThrows(ArithmeticException.class, () -> Main._mult(numbers1)),
+            () -> assertEquals(22982400, Main._mult(numbers2))
+        );
     }    
 
     @Test // Доп. тест
     public void testCalculateAvg() {
-        int[] numbers = {0, 100, 50};
-        assertEquals(50, Main._avg(numbers)); 
-    }    
+        int[] numbers1 = {};
+        int[] numbers2 = {0, 100, 50};
+        assertAll(
+            () -> assertEquals(0, Main._avg(numbers1)),
+            () -> assertEquals(50, Main._avg(numbers2))
+        );
+    }
+
+    @Disabled
+    @Test
+    @Timeout(value = 100, unit = TimeUnit.MILLISECONDS)
+    public void testTimeout() throws InterruptedException{
+        Thread.sleep(200);
+    }
+
 }

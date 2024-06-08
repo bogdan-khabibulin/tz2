@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        if (args.length > 0) {FILE_PATH = args[0];}
+        if (args.length > 0) {FILE_PATH = args[0];} // строка нужна для тестов в NumberProcessorTest, чтобы вызываться от сгенерированных тестовых данных
 
         try {
             int[] numbers = readNumbersFromFile(FILE_PATH);
@@ -27,20 +27,19 @@ public class Main {
     }
 
     private static int[] readNumbersFromFile(String filePath) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line = reader.readLine();
-        reader.close();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line = reader.readLine();
+            if (line == null) {
+                return null;
+            }
 
-        if (line == null) {
-            return null;
+            String[] parts = line.split(" ");
+            int[] numbers = new int[parts.length];
+            for (int i = 0; i < parts.length; i++) {
+                numbers[i] = Integer.parseInt(parts[i]);
+            }
+            return numbers;
         }
-
-        String[] parts = line.split(" ");
-        int[] numbers = new int[parts.length];
-        for (int i = 0; i < parts.length; i++) {
-            numbers[i] = Integer.parseInt(parts[i]);
-        }
-        return numbers;
     }
 
     public static int _min(int[] numbers) {
@@ -64,19 +63,25 @@ public class Main {
     }
 
     public static int _sum(int[] numbers) {
-        int sum = 0;
+        long sum = 0;
         for (int number : numbers) {
-            sum += number;
+            sum += (long) number;
+            if (sum > (long) Integer.MAX_VALUE || sum < (long) Integer.MIN_VALUE) {
+                throw new ArithmeticException("Сумма превышает диапазон int.");
+            }
         }
-        return sum;
+        return (int) sum;
     }
 
     public static long _mult(int[] numbers) {
         long mult = 1;
         for (int number : numbers) {
-            mult *= number;
+            mult *= (long) number;
+            if (mult > (long) Integer.MAX_VALUE || mult < (long) Integer.MIN_VALUE) {
+                throw new ArithmeticException("Произведение превышает диапазон int.");
+            }
         }
-        return mult;
+        return (int) mult;
     }
 
     public static double _avg(int[] numbers) { // Доп. метод
